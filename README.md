@@ -30,7 +30,7 @@ This project is made to create a web API that can send requests with the get, po
 
 ## Installation
 - [node.js](https://nodejs.org/en/download/)
-- [express.js](https://expressjs.com/en/starter/installing.html) or `$ npm install express --save`
+- [express.js](https://expressjs.com/en/starter/installing.html)
 - [PostgreSQL](https://www.postgresql.org/download/)
 - [PgAdmin](https://www.pgadmin.org/download/)
 - [Postman](https://www.postman.com/downloads/)
