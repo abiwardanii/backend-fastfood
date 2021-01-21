@@ -14,9 +14,9 @@
 - Winston(Log File)
 
 ### Modules
-- [Morgan](https://www.npmjs.com/package/morgan) or `npm i morgan`
-- [Body-parse](https://www.npmjs.com/package/body-parser) or `npm i  body parser`
-- [Node-postgre](https://node-postgres.com/) or `$ npm install pg`
+- [Morgan](https://www.npmjs.com/package/morgan)
+- [Body-parse](https://www.npmjs.com/package/body-parser)
+- [Node-postgre](https://node-postgres.com/)
 - [ESLint](https://eslint.org/docs/user-guide/getting-started)
 - [JWT](https://www.npmjs.com/package/jsonwebtoken)
 - [Redis](https://www.npmjs.com/package/redis)
@@ -30,7 +30,7 @@ This project is made to create a web API that can send requests with the get, po
 
 ## Installation
 - [node.js](https://nodejs.org/en/download/)
-- [express.js](https://expressjs.com/en/starter/installing.html) or `$ npm install express --save`
+- [express.js](https://expressjs.com/en/starter/installing.html)
 - [PostgreSQL](https://www.postgresql.org/download/)
 - [PgAdmin](https://www.pgadmin.org/download/)
 - [Postman](https://www.postman.com/downloads/)
