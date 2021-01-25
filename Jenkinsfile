@@ -1,4 +1,4 @@
-def dockerhub = "abiwardani/jenkins-API"
+def dockerhub = "abiwardani/jenkins-api"
 def image_name = "${dockerhub}:${BRANCH_NAME}"
 def builder
 
