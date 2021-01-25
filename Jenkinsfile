@@ -5,31 +5,27 @@ def builder
 pipeline {
     agent any
 
-    parameters {
-        booleanParam(name: 'RUN', defaultValue: 'false', description: 'Checklist for run app')
-        choice(name: 'DEPLOY', choices: ["master", "production"], description: 'Choose Branch')
-    }
-
-    stages {
-        stage("Install Dependecies") {
-            steps {
-               nodejs("node14") {
-                    sh 'npm install'
-                }
-            }
-        }
-        stage("Build Docker Image") {
+    stages {  
+        stage("Deploy docker compose") {
             steps {
                 script {
-                    builder = docker.build("${dockerhub}:${BRANCH_NAME}")
-                }
-            }
-        }    
-        stage("Push Docker Image") {
-            steps {
-                script {
-                    builder.push()
-                }
+                        sshPublisher(
+                            publishers: [
+                                sshPublisherDesc(
+                                    configName: 'devserver',
+                                    verbose: false,
+                                    transfers: [
+                                        sshTransfer(
+                                            sourceFiles: 'docker-compose.yml',
+                                            remoteDirectory: 'app',
+                                            execCommand: "docker pull ${dockerhub}:${BRANCH_NAME}; cd /home/developer/app; docker-compose stop; docker-compose up -d --force-recreate",
+                                            execTimeout: 120000,
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+                    }
             }
         }        
       
