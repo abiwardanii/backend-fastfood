@@ -6,69 +6,45 @@ pipeline {
     agent any
 
     parameters {
-        booleanParam(name: 'RUNTEST', defaultValue: 'false', description: 'Check Docker image')
+        booleanParam(name: 'RUN', defaultValue: 'false', description: 'Checklist for run app')
         choice(name: 'DEPLOY', choices: ["master", "production"], description: 'Choose Branch')
-    }
-
-    environment {
-        branch = "production"
     }
 
     stages {
         stage("Install Dependecies") {
             steps {
-                echo 'installing'
+               sh 'npm install'
             }
         }
-        stage("Build Docker Image master") {
-            when {
-                expression {
-                    params.DEPLOY == "master"
-                }
-            }
+        stage("Build Docker Image") {
             steps {
-                echo "build ${BRANCH_NAME}"
-            }
-        }
-        stage("Build Docker Image production") {
-            when {
-                expression {
-                    params.DEPLOY == "production"
+                script {
+                    builder = docker.build("${dockerhub}:${BRANCH_NAME}")
                 }
-            }
-            steps {
-                echo "build ${env.branch} image"
             }
         }
         stage("Testing") {
             when {
                 expression {
-                    params.RUNTEST
+                    params.RUN
                 }
             }
             steps {
                 echo 'run testing'
             }
         }        
-        stage("Push Docker Image master") {
+        stage("Push Docker Image") {
             when {
                 expression {
-                    params.DEPLOY == "master"
+                    params.RUN
                 }
             }
             steps {
-                echo "push ${BRANCH_NAME} image"
-            }
-        }        
-        stage("Push Docker Image production") {
-            when {
-                expression {
-                    params.DEPLOY == "production"
+                script {
+                    builder.push()
                 }
             }
-            steps {
-                echo "push ${env.branch} image"
-            }
         }        
+      
     }
 }
