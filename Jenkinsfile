@@ -32,7 +32,11 @@ pipeline {
                 }
             }
             steps {
-                echo 'run testing'
+                script {
+                    builder.inside {
+                        sh "${dockerhub}:${BRANCH_NAME} created"
+                    }
+                }
             }
         }        
         stage("Push Docker Image") {
