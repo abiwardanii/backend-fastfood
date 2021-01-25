@@ -24,27 +24,8 @@ pipeline {
                     builder = docker.build("${dockerhub}:${BRANCH_NAME}")
                 }
             }
-        }
-        stage("Testing") {
-            when {
-                expression {
-                    params.RUN
-                }
-            }
-            steps {
-                script {
-                    builder.inside {
-                        sh "Image created"
-                    }
-                }
-            }
-        }        
+        }    
         stage("Push Docker Image") {
-            when {
-                expression {
-                    params.RUN
-                }
-            }
             steps {
                 script {
                     builder.push()
