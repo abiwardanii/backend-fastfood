@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     builder.inside {
-                        sh "${dockerhub}:${BRANCH_NAME} created"
+                        sh "Image created"
                     }
                 }
             }
