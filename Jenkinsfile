@@ -13,7 +13,9 @@ pipeline {
     stages {
         stage("Install Dependecies") {
             steps {
-               sh 'npm install'
+               nodejs("node14") {
+                    sh 'npm install'
+                }
             }
         }
         stage("Build Docker Image") {
