@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+        - "5252:5432"
+    volumes:
+        - ./pgdata:/var/lib/postgresql/data
+    networks: 
+        - fastfoodnet
+    environment:
+        - POSTGRES_PASSWORD=yuhagasiri44
+        - POSTGRES_USER=abiwardani
+        - POSTGRES_DB=fooditems
+    mem_limit: 250m
+    cpus: 0.5
+  redis: 
+    image: redis:latest
+    ports: 
+        - "6363:6379"
+    networks: 
+        - fastfoodnet
+    volumes:
+        - ./redis.conf:/usr/local/etc/redis/redis.conf
+    hostname: redis
+    mem_limit: 250m
+    cpus: 0.5
+  backend:
+    image: abiwardani/jenkins-api:master
+    ports:
+      - 2020-2021:2000
+    volumes:
+      - ./backendlog:/user/backend
+    env_file:
+      - ./backend/.env
+    networks:
+      - fastfoodnet
+    depends_on:
+      - postgres
+      - redis
+    mem_limit: 250m
+    cpus: 0.5
+    scale: '2'
+    
+networks:
+  fastfoodnet:
