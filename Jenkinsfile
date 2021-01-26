@@ -5,6 +5,10 @@ def builder
 pipeline {
     agent any
 
+    environment {
+        branch = "production"
+    }
+
     parameters {
         choice(name: 'DEPLOY', choices: ['deployment', 'production'], description: 'Choose Branch')
     }
@@ -20,27 +24,27 @@ pipeline {
         stage("testing branch master"){
             when {
                 expression {
-                    params.DEPLOY == 'deployment' || BRANCH_NAME == 'master'
+                    params.DEPLOY == 'deployment'
                 }
             }
             steps {
-                echo "testing branch master success"
+                echo "testing branch ${BRANCH_NAME} success"
             }
         }   
         stage("testing branch production"){
             when {
                 expression {
-                    params.DEPLOY == 'production' || BRANCH_NAME == 'production'
+                    params.DEPLOY == 'production'
                 }
             }
             steps {
-                echo "testing branch production success"
+                echo "testing branch ${env.branch} success"
             }
         }    
         stage("Deploy Docker Compose Deployment") {
             when {
                 expression {
-                    params.DEPLOY == 'deployment' || BRANCH_NAME == 'master'
+                    params.DEPLOY == 'deployment'
                 }
             }
             steps {
@@ -67,7 +71,7 @@ pipeline {
         stage("Deploy Docker Compose Production") {
             when {
                 expression {
-                    params.DEPLOY == 'production' || BRANCH_NAME == 'production'
+                    params.DEPLOY == 'production'
                 }
             }
             steps {
@@ -81,7 +85,7 @@ pipeline {
                                     sshTransfer(
                                         sourceFiles: 'docker-compose.yml',
                                         remoteDirectory: 'app',
-                                        execCommand: "docker pull ${dockerhub}:${BRANCH_NAME}; cd ./app/app; docker-compose stop; docker-compose up -d --force-recreate",
+                                        execCommand: "docker pull ${dockerhub}:${env.branch}; cd ./app/app; docker-compose stop; docker-compose up -d --force-recreate",
                                         execTimeout: 120000,
                                     )
                                 ]
