@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     builder.inside {
-                        sh 'Testing success'
+                        sh 'echo Testing success'
                     }
                 }
             }
