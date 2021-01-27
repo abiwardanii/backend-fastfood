@@ -6,6 +6,22 @@ pipeline {
     agent any
 
     stages {
+        stage("Build Images"){
+            steps {
+                script {
+                    builder = docker.build("${image_name}")
+                }
+            }
+        }   
+        stage("Testing Images"){
+            steps {
+                script {
+                    builder.inside {
+                        sh 'Testing success'
+                    }
+                }
+            }
+        }
         stage("Push image")  {
             steps {
                 script {
