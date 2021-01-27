@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres:latest
     ports:
-        - "5252:5432"
+        - "5353:5432"
     volumes:
         - ./pgdata:/var/lib/postgresql/data
     networks: 
