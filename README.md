@@ -56,6 +56,8 @@ npm start
 | DELETE | /category | Delete a category  |
 
 ### APIs History 
+| Method | Endpoint | Description |
+| --- | --- | --- |
 | GET | /history/commit| Create history table |
 | GET | /history | List of history |
 | GET | /history/:id | List of specific history |
@@ -65,6 +67,8 @@ npm start
 | DELETE | /history | Delete a history  |
 
 ### APIs Product 
+| Method | Endpoint | Description |
+| --- | --- | --- |
 | GET | /product/commit| Create product table |
 | GET | /product | List of product |
 | GET | /product/:id | List of specific product |
@@ -74,6 +78,8 @@ npm start
 | DELETE | /product | Delete a product  |
 
 ### APIs User 
+| Method | Endpoint | Description |
+| --- | --- | --- |
 | GET | /user/commit| Create user table |
 | GET | /user | List of user |
 | POST | /user | Create New user |
